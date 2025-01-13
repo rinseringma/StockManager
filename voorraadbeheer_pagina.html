@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voorraad Beheer</title>
+  <script src="app.js" defer></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+  <div class="w-full max-w-4xl p-4 bg-white rounded shadow-md">
+    <h1 class="text-2xl font-bold text-center mb-4">Voorraadlijst</h1>
+    <table id="beheerTableBody" class="w-full border-collapse border border-gray-300">
+      <thead>
+        <tr>
+          <th class="border border-gray-300 p-2">ID</th>
+          <th class="border border-gray-300 p-2">Titel</th>
+          <th class="border border-gray-300 p-2">Barcode</th>
+          <th class="border border-gray-300 p-2">Aantal</th>
+          <th class="border border-gray-300 p-2">Acties</th>
+        </tr>
+      </thead>
+      <tbody id="beheerTableBody">
+        <!-- Dynamische inhoud hier -->
+      </tbody>
+    </table>
+    <button 
+        class="mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-gray-600 w-full" onclick="window.location.href='index.html'">
+        Terug
+    </button>
+  </div>
+  <div id="popup" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white rounded p-4 w-96">
+      <div id="popupContent"></div>
+      <button 
+        id="closePopup" 
+        class="mt-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600 w-full">
+        Sluiten
+      </button>
+    </div>
+  </div>
+</body>
+</html>
