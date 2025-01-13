@@ -2,7 +2,6 @@
 
 document.addEventListener("DOMContentLoaded", () => {
   const barcodeInput = document.getElementById("barcodeInput");
-  const formSubmit = document.getElementById("submitForm");
   const popup = document.getElementById("popup");
   const popupContent = document.getElementById("popupContent");
   const closePopup = document.getElementById("closePopup");
@@ -12,24 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Barcode invoer logica
   barcodeInput?.addEventListener("change", (event) => {
-
-    event.preventDefault();
-
-    const barcode = barcodeInput.value.trim();
-
-    if(barcode) {
-      formSubmit.removeAttribute("disabled");
-      formSubmit.classList.remove("opacity-50");
-    } else {
-      formSubmit.setAttribute("disabled", "disabled");
-      formSubmit.classList.add("opacity-50");
-    }
-
-  });
-
-  // Form submit logica
-  formSubmit?.addEventListener("click", (event) => {
-
     event.preventDefault();
 
     const barcode = barcodeInput.value.trim();
@@ -108,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     sluitPopup();
+    window.location.href = "voorraadbeheer_pagina.html";
   };
 
   // Ophalen en weergeven van producten op de voorraadbeheerpagina
