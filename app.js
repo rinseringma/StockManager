@@ -10,33 +10,38 @@ document.addEventListener("DOMContentLoaded", () => {
   if (barcodeInput) barcodeInput.focus();
 
   // Barcode invoer logica
-  barcodeInput?.addEventListener("change", (event) => {
+  barcodeInput?.addEventListener("keyup", (event) => {
     event.preventDefault();
 
-    const barcode = barcodeInput.value.trim();
-    const producten = JSON.parse(localStorage.getItem("producten")) || [];
+    delay(function(){
 
-    const bestaandProduct = producten.find((product) => product.barcode === barcode);
+      const barcode = barcodeInput.value.trim();
+      const producten = JSON.parse(localStorage.getItem("producten")) || [];
 
-    if (bestaandProduct) {
-      popupContent.innerHTML = `
-        <p>Product gevonden: <strong>${bestaandProduct.titel}</strong></p>
-        <p>Aantal: <strong>${bestaandProduct.aantal}</strong></p>
-        <div class="grid grid-cols-2 gap-4">
-          <button class='mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600' onclick='wijzigAantal("${barcode}", 1)'>+</button>
-          <button class='mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600' onclick='wijzigAantal("${barcode}", -1)'>-</button>
-        </div>
-      `;
-    } else {
-      popupContent.innerHTML = `
-        <p>Product niet gevonden. Wil je dit product toevoegen?</p>
-        <button class='mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600' onclick='toonToevoegen("${barcode}")'>Ja</button>
-        <button class='mt-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600' onclick='sluitPopup()'>Nee</button>
-      `;
-    }
+      const bestaandProduct = producten.find((product) => product.barcode === barcode);
 
-    popup.classList.remove("hidden");
-    barcodeInput.value = "";
+      if (bestaandProduct) {
+        popupContent.innerHTML = `
+          <p>Product gevonden: <strong>${bestaandProduct.titel}</strong></p>
+          <p>Aantal: <strong>${bestaandProduct.aantal}</strong></p>
+          <div class="grid grid-cols-2 gap-4">
+            <button class='mt-4 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600' onclick='wijzigAantal("${barcode}", 1)'>+</button>
+            <button class='mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600' onclick='wijzigAantal("${barcode}", -1)'>-</button>
+          </div>
+        `;
+      } else {
+        popupContent.innerHTML = `
+          <p>Product niet gevonden. Wil je dit product toevoegen?</p>
+          <button class='mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600' onclick='toonToevoegen("${barcode}")'>Ja</button>
+          <button class='mt-4 px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600' onclick='sluitPopup()'>Nee</button>
+        `;
+      }
+
+      popup.classList.remove("hidden");
+      barcodeInput.value = "";
+
+    }, 1000);
+
   });
 
   // Sluit popup
@@ -47,6 +52,16 @@ document.addEventListener("DOMContentLoaded", () => {
     popup.classList.add("hidden");
     popupContent.innerHTML = "";
   }
+
+  // Delay
+  var delay = (function(){
+    var timer = 0;
+    return function(callback, ms){
+      clearTimeout (timer);
+      timer = setTimeout(callback, ms);
+    };
+  })();
+  
 
   // Functie: Wijzig aantal
   window.wijzigAantal = (barcode, wijziging) => {
